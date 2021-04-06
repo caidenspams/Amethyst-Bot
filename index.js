@@ -4,9 +4,6 @@ const botsettings = require('./botsettings.json');
 
 const bot = new Discord.Client({disableEveryone: true});
 
-const { GiveawayCreator } = require('discord-giveaway');
-const Creator = new GiveawayCreator(bot, 'mongodb://...');
-
 
 bot.on("guildMemberAdd", member => {
     const welcomeChannel = member.guild.channels.cache.find(channel => channel.name === '👋-welcome')
