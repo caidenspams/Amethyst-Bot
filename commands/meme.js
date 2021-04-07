@@ -1,24 +1,30 @@
+/* eslint-disable no-unused-vars */
 const Discord = require('discord.js');
-const randomPuppy = require('random-puppy');
-
-module.exports.run = async (bot, message, args) => {
-    const subReddits = ["meme", "me_irl", "dankmeme"]
-    const random = subReddits[Math.floor(Math.random() * subReddits.length)];
-    const img = await randomPuppy(random);
-
-    const embed = new Discord.MessageEmbed()
-    .setImage(img)
-    .setTitle(`From /r/${random}`)
-    .setURL(`http://reddit.com/${random}`)
-
-    message.channel.send(embed);
-
-}
+const fetch = require('node-fetch').default;
+const { Client, Message } = require('discord.js');
+/**
+ * JSDOC
+ * @param {Client} client
+ * @param {Message} message
+ * @param {String[]} args
+ */
+module.exports.run = async (client, message, args) => {
+	const res = await fetch('https://api.nuggetdev.com/api/meme');
+	const json = await res.json();
+	const embed = new Discord.MessageEmbed()
+		.setTitle(`${json.title}`)
+		.setURL(`${json.url}`)
+		.setImage(json.image)
+		.setColor('RANDOM')
+		.setFooter(`👍 ${json.upvotes} | 💬 ${json.comments}`);
+	message.reply({
+		embed: embed,
+		allowedMentions: { repliedUser: false },
+	});
+};
 
 module.exports.config = {
-    name: "meme",
-    description: "",
-    usage: "^meme",
-    accessableby: "Members",
-    aliases: []
-}
+	name: 'meme',
+	aliases: [],
+	description: 'Sends a meme',
+};

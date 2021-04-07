@@ -13,6 +13,7 @@
     "discord-giveaway": "^1.1.4",
     "discord.js": "^12.5.3",
     "moment": "^2.29.1",
+    "node-fetch": "^2.6.1",
     "random-puppy": "^1.1.0"
   }
 }
