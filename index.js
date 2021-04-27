@@ -10,6 +10,13 @@ bot.on("guildMemberAdd", member => {
     welcomeChannel.send (`Welcome! ${member}`)
 })
 
+bot.on('message', message => {
+  if (message.content === 'prefix') {
+      message.channel.send('^')
+}
+})
+
+
 require("./util/eventHandler")(bot)
 
 const fs = require("fs");
